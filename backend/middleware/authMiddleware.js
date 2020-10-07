@@ -6,7 +6,6 @@ const protect = asyncHandler(async (req, res, next) => {
   let token = req.headers.authorization;
 
   if (token && token.startsWith('Bearer')) {
-    console.log('token found');
   }
   {
     try {
