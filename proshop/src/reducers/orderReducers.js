@@ -2,13 +2,21 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DELIVERED_FAIL,
+  ORDER_DELIVERED_REQUEST,
+  ORDER_DELIVERED_RESET,
+  ORDER_DELIVERED_SUCCESS,
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_LIST_FAIL,
   ORDER_LIST_MY__FAIL,
   ORDER_LIST_MY__REQUEST,
   ORDER_LIST_MY__RESET,
   ORDER_LIST_MY__SUCCESS,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_RESET,
+  ORDER_LIST_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
   ORDER_PAY_RESET,
@@ -122,6 +130,54 @@ export const orderListMyReducer = (
       return {
         orders: [],
       };
+    default:
+      return state;
+  }
+};
+
+export const orderListReducer = (state = { orders: [] }, { type, payload }) => {
+  switch (type) {
+    case ORDER_LIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case ORDER_LIST_SUCCESS:
+      return {
+        loading: false,
+        orders: payload,
+      };
+    case ORDER_LIST_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
+    case ORDER_LIST_RESET:
+      return {
+        orders: [],
+      };
+    default:
+      return state;
+  }
+};
+
+export const orderDeliveredReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case ORDER_DELIVERED_REQUEST:
+      return {
+        loading: true,
+      };
+    case ORDER_DELIVERED_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ORDER_DELIVERED_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
+    case ORDER_DELIVERED_RESET:
+      return {};
     default:
       return state;
   }
